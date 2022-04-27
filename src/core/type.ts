@@ -13,3 +13,7 @@ export const getType = (data: unknown) =>
  */
 export const isNull = (value: unknown): value is null =>
     getType(value) === 'null';
+
+/**
+ * @description 判断值数据是否为空，包括undefined|null|空字符串|只有空格的字符串|空数组|空对象
+ */
