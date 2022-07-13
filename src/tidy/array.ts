@@ -9,9 +9,9 @@ interface UnknownObject {
 /**
  * @description 对象数组根据对象的某一属性进行数组去重
  */
-export const removeDuplicateObjByKey = (
-    dataSource: UnknownObject[],
-    key: string
+export const removeDuplicateObjByKey = <T extends UnknownObject>(
+    dataSource: T[],
+    key: keyof T
 ) => {
     const map = new Map();
     return dataSource.filter((item) => {
@@ -23,12 +23,12 @@ export const removeDuplicateObjByKey = (
 /**
  * @description 对象数组根据某一属性进行分类返回二维数组
  */
-export const classifyObjectArrayByKey = (
-    dataSource: UnknownObject[],
-    key: string
+export const classifyObjectArrayByKey = <T extends UnknownObject>(
+    dataSource: T[],
+    key: keyof T
 ) => {
     const values = new Set(dataSource.map((item) => item[key]));
-    const result: UnknownObject[][] = [];
+    const result: T[][] = [];
     values.forEach((value) => {
         result.push(dataSource.filter((item) => item[key] === value));
     });
@@ -36,10 +36,10 @@ export const classifyObjectArrayByKey = (
 };
 
 /**
- * @description 将一维数组按长度转换为二维数组
+ * @description 将一维数组按长度分割为二维数组
  */
-export const divideArrayByLength = <T>(dataSource: T[] = [], length = 0) => {
-    if (Array.isArray(dataSource) && dataSource.length > 0 && length > 0) {
+export const divideArrayByLength = <T>(dataSource: T[] = [], length: number) => {
+    if (dataSource.length > 0 && length > 0) {
         const res = [];
         const arrLength = dataSource.length;
         for (let i = 0; i < arrLength; i += length) {
